@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Speed Cameras in Zürich</title>
+    <!-- Link to Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Include Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      /* Set the size of the map */
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Speed Cameras in Zürich, Switzerland</h1>
+    <!-- This div will hold the map -->
+    <div id="map"></div>
+
+    <script>
+      // Create the map and set its initial view to Zürich, Switzerland
+      var map = L.map('map').setView([47.3769, 8.5417], 10); // Centered on Zürich
+
+      // Load and display OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+      }).addTo(map);
+
+      // Array of speed camera locations with their speed limits
+      var cameraLocations = [
+        { lat: 47.68498, lng: 8.61552, name: "Neuhausen am Rheinfall", speed: "50 km/h" }, // Neuhausen am Rheinfall
+        { lat: 47.69526, lng: 8.59597, name: "Beringen", speed: "50 km/h" },              // Beringen
+        { lat: 47.70791, lng: 8.63794, name: "Hochstrasse", speed: "50 km/h" },            // Hochstrasse
+        { lat: 47.49723, lng: 8.72574, name: "Winterthur", speed: "50 km/h" },             // Winterthur
+        { lat: 47.40158, lng: 8.39738, name: "Dietikon", speed: "100 km/h" },              // Dietikon (highway)
+        { lat: 47.40085, lng: 8.59817, name: "Dübendorf", speed: "50 km/h" },              // Dübendorf
+        { lat: 47.43155, lng: 8.46571, name: "Regensdorf", speed: "50 km/h" },             // Regensdorf
+        { lat: 47.22585, lng: 8.67237, name: "Wädenswil", speed: "50 km/h" },              // Wädenswil
+        { lat: 47.34515, lng: 8.71955, name: "Uster", speed: "60 km/h" },                  // Uster
+        { lat: 47.44975, lng: 8.58197, name: "Kloten", speed: "50 km/h" }                  // Kloten
+      ];
+
+      // Loop through the locations and add a marker for each with a popup
+      cameraLocations.forEach(function(location) {
+        L.marker([location.lat, location.lng]).addTo(map)
+          .bindPopup("<b>" + location.name + "</b><br>Speed limit: " + location.speed);
+      });
+    </script>
+  </body>
+</html>
